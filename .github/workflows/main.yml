@@ -18,7 +18,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build with Gradle
-        run: chmod +x gradlew && ./gradlew build
+        run: gradle build
 
       - name: Upload Result
         uses: actions/upload-artifact@v4
