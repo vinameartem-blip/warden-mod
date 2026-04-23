@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT' // Обновили версию плагина
+    id 'fabric-loom' version '1.9-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -8,26 +8,29 @@ group = "ru.warden"
 
 repositories {
     maven { url 'https://maven.fabricmc.net/' }
-    maven { url 'https://maven.impactclient.net/' } // Для Baritone
+    maven { url 'https://jitpack.io' } // Резервный источник для Baritone
     mavenCentral()
 }
 
 dependencies {
+    // Основной Minecraft и маппинги
     minecraft "com.mojang:minecraft:1.21.4"
     mappings "net.fabricmc:yarn:1.21.4+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.9"
 
-    // Fabric API
+    // Стандартный Fabric API
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.113.0+1.21.4"
 
-    // Baritone API
-    implementation "baritone:api:1.10.2"
+    // Baritone через JitPack (надежная альтернатива)
+    implementation 'com.github.cabaletta:baritone:v1.10.1'
 }
 
+// Настройка версии Java для компиляции
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 21
 }
 
+// Подстановка версии мода в файл fabric.mod.json
 processResources {
     inputs.property "version", project.version
     filesMatching("fabric.mod.json") {
